@@ -39,16 +39,16 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/nrf/lib/bin/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/nrf/lib/bin/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/nrf/lib/flash_patch/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/nrf/lib/flash_patch/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/nrf/lib/fatal_error/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/nrf/lib/fatal_error/cmake_install.cmake")
 endif()
 

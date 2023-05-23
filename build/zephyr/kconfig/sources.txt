@@ -1,6 +1,6 @@
-/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/Kconfig/Kconfig.modules
-/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/Kconfig/Kconfig.shield
-/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/Kconfig/Kconfig.shield.defconfig
+/home/rt/Desktop/SETR_11_14/build/Kconfig/Kconfig.modules
+/home/rt/Desktop/SETR_11_14/build/Kconfig/Kconfig.shield
+/home/rt/Desktop/SETR_11_14/build/Kconfig/Kconfig.shield.defconfig
 /home/rt/ncs/modules/debug/TraceRecorder/config/Kconfig
 /home/rt/ncs/modules/debug/TraceRecorder/kernelports/Zephyr/Kconfig
 /home/rt/ncs/modules/debug/TraceRecorder/streamports/ARM_ITM/Kconfig

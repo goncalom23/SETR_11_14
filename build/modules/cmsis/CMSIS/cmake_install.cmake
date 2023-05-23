@@ -39,6 +39,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/cmsis/CMSIS/Core/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/cmsis/CMSIS/Core/cmake_install.cmake")
 endif()
 

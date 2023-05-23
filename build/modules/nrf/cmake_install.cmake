@@ -39,36 +39,36 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/nrf/ext/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/nrf/ext/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/nrf/lib/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/nrf/lib/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/nrf/samples/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/nrf/samples/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/nrf/subsys/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/nrf/subsys/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/nrf/modules/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/nrf/modules/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/nrf/drivers/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/nrf/drivers/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/nrf/tests/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/nrf/tests/cmake_install.cmake")
 endif()
 

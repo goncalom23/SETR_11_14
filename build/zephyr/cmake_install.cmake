@@ -39,211 +39,211 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/zephyr/arch/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/zephyr/arch/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/zephyr/lib/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/zephyr/lib/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/zephyr/soc/arm/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/zephyr/soc/arm/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/zephyr/boards/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/zephyr/boards/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/zephyr/subsys/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/zephyr/subsys/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/zephyr/drivers/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/zephyr/drivers/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/nrf/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/nrf/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/mcuboot/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/mcuboot/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/mbedtls/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/mbedtls/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/trusted-firmware-m/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/trusted-firmware-m/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/cjson/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/cjson/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/zcbor/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/zcbor/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/memfault-firmware-sdk/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/memfault-firmware-sdk/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/openthread/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/openthread/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/canopennode/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/canopennode/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/chre/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/chre/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/civetweb/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/civetweb/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/cmsis/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/cmsis/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/fatfs/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/fatfs/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/hal_nordic/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/hal_nordic/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/st/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/st/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/libmetal/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/libmetal/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/liblc3codec/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/liblc3codec/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/littlefs/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/littlefs/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/loramac-node/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/loramac-node/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/lvgl/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/lvgl/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/lz4/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/lz4/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/mipi-sys-t/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/mipi-sys-t/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/nanopb/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/nanopb/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/nrf_hw_models/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/nrf_hw_models/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/open-amp/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/open-amp/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/segger/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/segger/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/tinycbor/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/tinycbor/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/tinycrypt/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/tinycrypt/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/TraceRecorder/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/TraceRecorder/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/zscilib/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/zscilib/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/nrfxlib/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/nrfxlib/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/modules/connectedhomeip/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/modules/connectedhomeip/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/zephyr/kernel/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/zephyr/kernel/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/zephyr/cmake/flash/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/zephyr/cmake/flash/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/zephyr/cmake/usage/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/zephyr/cmake/usage/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/zephyr/cmake/reports/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/zephyr/cmake/reports/cmake_install.cmake")
 endif()
 

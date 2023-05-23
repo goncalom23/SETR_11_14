@@ -1,4 +1,4 @@
-# Install script for directory: /home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO
+# Install script for directory: /home/rt/Desktop/SETR_11_14
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/zephyr/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/zephyr/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/rt/Desktop/SETR_11_14/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

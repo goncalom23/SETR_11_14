@@ -39,11 +39,11 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/zephyr/soc/arm/nordic_nrf/nrf52/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/zephyr/soc/arm/nordic_nrf/nrf52/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rt/Desktop/Zephyr_examples_codes/rt_02_periodic_thread_DigIO/build/zephyr/soc/arm/nordic_nrf/common/cmake_install.cmake")
+  include("/home/rt/Desktop/SETR_11_14/build/zephyr/soc/arm/nordic_nrf/common/cmake_install.cmake")
 endif()
 
