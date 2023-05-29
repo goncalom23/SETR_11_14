@@ -24,10 +24,12 @@
 #include <zephyr/sys/printk.h>
 #include <zephyr/timing/timing.h>   /* for timing services */
 #include "threads.h"
+#include "uart.h"
 
 void main(void) 
 {
     configure_threads();
+    uartconfig();
 
     return;
 } 
