@@ -10,3 +10,8 @@ zephyr_include_directories(threads) #Add this line
 target_include_directories(app PRIVATE src/threads) #Add this line
 
 target_sources(app PRIVATE src/threads/threads.c) # Add module c source
+
+zephyr_include_directories(uart) #Add this line
+target_include_directories(app PRIVATE src/uart) #Add this line
+
+target_sources(app PRIVATE src/uart/uart.c) # Add module c source
