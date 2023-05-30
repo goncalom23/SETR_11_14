@@ -49,14 +49,14 @@
 #include <zephyr/sys/printk.h>      /* for printk()                               */
 #include "button.h"
 
-const uint8_t buttons_pins[] = {11,12,24,25,3,4,28,29};             /* vector with pins where buttons are connected */
+const uint8_t buttons_pins[] = {11,12,24,25};             /* vector with pins where buttons are connected */
 static const struct device * gpio0_dev = DEVICE_DT_GET(GPIO0_NODE); /* Now get the device pointer for GPIO0         */
 
 /* Define a variable of type static struct gpio_callback, which will latter be used to install the callback
 *  It defines e.g. which pin triggers the callback and the address of the function */
 static struct gpio_callback button_cb_data;
 
-uint8_t button_state[8];                                            /* array to track all buttons state             */
+uint8_t button_state[4];                                            /* array to track all buttons state             */
 
 /** \brief
  * Define a callback function. It is like an ISR (and runs in the cotext of an ISR) 

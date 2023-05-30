@@ -26,10 +26,37 @@
 #include "threads.h"
 #include "uart.h"
 
+struct DATABASE
+{
+    int8_t LED1;
+    int8_t LED2;
+    int8_t OUTPUT1;
+    int8_t OUTPUT2;
+    int8_t OUTPUT3;
+    int8_t OUTPUT4;
+    char* string_recieved;
+    int64_t ThermTemp;
+    uint32_t freq_UART;
+    uint32_t freq_INPUTS;
+    uint32_t freq_OUTPUTS;
+    uint32_t freq_SENSOR;
+}DATABASE;
+
+struct DATABASE DB;
+
+void UI()
+{
+    printf("\033[2J\033[H");                                // clear window code
+    printf("\n String Recieved= %s", DB.string_recieved); 
+    printf("\n"); 
+    //printf("\n%s Movie A, 19H00 session, 9 EUR",arrow[0]); 
+}
+
 void main(void) 
 {
-    configure_threads();
     uartconfig();
-
+    button_config();
+    configure_threads();
+    UI();
     return;
 } 

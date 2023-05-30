@@ -12,89 +12,86 @@
 
 #define STACK_SIZE 1024     /* Size of stack area used by each thread (can be thread specific, if necessary)*/
 
-#define thread_A_prio 1       /* Thread scheduling priority */
+#define thread_UART_prio 1       /* Thread scheduling priority */
+#define thread_UART_period 200         /* Therad periodicity (in ms)*/
+K_THREAD_STACK_DEFINE(thread_UART_stack, STACK_SIZE);  /* Create thread stack space */
+struct k_thread thread_UART_data;  /* Create variables for thread data */
+k_tid_t thread_UART_tid;       /* Create task IDs */
 
-#define thread_A_period 200         /* Therad periodicity (in ms)*/
+#define thread_INPUTS_prio 1       /* Thread scheduling priority */
+#define thread_INPUTS_period 200         /* Therad periodicity (in ms)*/
+K_THREAD_STACK_DEFINE(thread_INPUTS_stack, STACK_SIZE);  /* Create thread stack space */
+struct k_thread thread_INPUTS_data;  /* Create variables for thread data */
+k_tid_t thread_INPUTS_tid;       /* Create task IDs */
 
-K_THREAD_STACK_DEFINE(thread_A_stack, STACK_SIZE);  /* Create thread stack space */
+#define thread_OUTPUTS_prio 1       /* Thread scheduling priority */
+#define thread_OUTPUTS_period 200         /* Therad periodicity (in ms)*/
+K_THREAD_STACK_DEFINE(thread_OUTPUTS_stack, STACK_SIZE);  /* Create thread stack space */
+struct k_thread thread_OUTPUTS_data;  /* Create variables for thread data */
+k_tid_t thread_OUTPUTS_tid;       /* Create task IDs */
 
-struct k_thread thread_A_data;  /* Create variables for thread data */
-
-k_tid_t thread_A_tid;       /* Create task IDs */
-
-#define LED0_NID DT_NODELABEL(led0)         /* Refer to dts file */
-#define BUT0_NID DT_NODELABEL(button0)
+#define thread_SENSOR_prio 1       /* Thread scheduling priority */
+#define thread_SENSOR_period 200         /* Therad periodicity (in ms)*/
+K_THREAD_STACK_DEFINE(thread_SENSOR_stack, STACK_SIZE);  /* Create thread stack space */
+struct k_thread thread_SENSOR_data;  /* Create variables for thread data */
+k_tid_t thread_SENSOR_tid;       /* Create task IDs */
 
 void configure_threads()
 {
-    thread_A_tid = k_thread_create(&thread_A_data, thread_A_stack,
-    K_THREAD_STACK_SIZEOF(thread_A_stack), thread_A_code,
-    NULL, NULL, NULL, thread_A_prio, 0, K_NO_WAIT);
+    thread_UART_tid = k_thread_create(&thread_UART_data, thread_UART_stack,
+    K_THREAD_STACK_SIZEOF(thread_UART_stack), thread_UART_code,
+    NULL, NULL, NULL, thread_UART_prio, 0, K_NO_WAIT);
+
+    thread_INPUTS_tid = k_thread_create(&thread_INPUTS_data, thread_INPUTS_stack,
+    K_THREAD_STACK_SIZEOF(thread_INPUTS_stack), thread_INPUTS_code,
+    NULL, NULL, NULL, thread_INPUTS_prio, 0, K_NO_WAIT);
+
+    thread_OUTPUTS_tid = k_thread_create(&thread_OUTPUTS_data, thread_OUTPUTS_stack,
+    K_THREAD_STACK_SIZEOF(thread_OUTPUTS_stack), thread_OUTPUTS_code,
+    NULL, NULL, NULL, thread_OUTPUTS_prio, 0, K_NO_WAIT);
+
+    thread_SENSOR_tid = k_thread_create(&thread_SENSOR_data, thread_SENSOR_stack,
+    K_THREAD_STACK_SIZEOF(thread_SENSOR_stack), thread_SENSOR_code,
+    NULL, NULL, NULL, thread_SENSOR_prio, 0, K_NO_WAIT);
 }
 
 /* Thread code implementation */
-void thread_A_code(void *argA , void *argB, void *argC)
+void thread_UART_code(void *argA , void *argB, void *argC)
 {
     /* Local vars */
-    int64_t fin_time=0, release_time=0;     /* Timing variables to control task periodicity */
-    const struct gpio_dt_spec led0_dev = GPIO_DT_SPEC_GET(LED0_NID, gpios); /* GPIO device structure for LED*/
-    const struct gpio_dt_spec but0_dev = GPIO_DT_SPEC_GET(BUT0_NID, gpios); /* GPIO device structure for Button*/
-        
-    int ret=0;     /* Generic return value variable */
-    
-    /* Task init code */
-    printk("Thread A init (periodic)\n");
-    
-    /* Check if Led and button devices are ready */
-	if (!device_is_ready(led0_dev.port))  
-	{
-        printk("Fatal error: led0 device not ready!");
-		return;
-	}
-    if (!device_is_ready(but0_dev.port))  
-	{
-        printk("Fatal error: but0 device not ready!");
-		return;
-	}
+    int64_t fin_time=0;
+    int64_t release_time=0;     /* Timing variables to control task periodicity */
 
-    /* Configure led0 and but0 IOs */
-    ret = gpio_pin_configure_dt(&led0_dev, GPIO_OUTPUT_ACTIVE);
-    if (ret < 0) {
-        printk("Failed to configure led0 \n\r");
-	    return;
-    }
-    ret = gpio_pin_configure_dt(&but0_dev, GPIO_INPUT | GPIO_PULL_UP);
-    if (ret < 0) {
-        printk("Failed to configure but0 \n\r");
-	    return;
-    }
-           
     /* Compute next release instant */
-    release_time = k_uptime_get() + thread_A_period;
+    release_time = k_uptime_get() + thread_UART_period;
 
     /* Thread loop */
-    while(1) {        
-        
-        printk("Thread A activated\n\r");  
-        
-        if(gpio_pin_get_dt(&but0_dev)) {
-            gpio_pin_set_dt(&led0_dev,1);
-            printk("but0 active\n\r");
-        } else {
-            gpio_pin_set_dt(&led0_dev,0);
-            printk("but0 not active\n\r");
-        }
+    while(1) 
+    {        
+        printf("Thread UART\n\r");  
        
         /* Wait for next release instant */ 
         fin_time = k_uptime_get();
-        if( fin_time < release_time) {
+        if( fin_time < release_time) 
+        {
             k_msleep(release_time - fin_time);
-            release_time += thread_A_period;
+            release_time += thread_UART_period;
 
         }
     }
 
     /* Stop timing functions */
-    timing_stop();
+    //timing_stop();
 }
 
+void thread_INPUTS_code()
+{
+}
+
+void thread_OUTPUTS_code()
+{
+}
+
+void thread_SENSOR_code()
+{
+}
