@@ -8,8 +8,11 @@
  * 
  */
 
+#include <zephyr/drivers/i2c.h>
 #include "threads.h"
 #include "uart.h"
+
+#define I2C0_NODE DT_NODELABEL(tempsensor)
 
 #define STACK_SIZE 1024     /* Size of stack area used by each thread (can be thread specific, if necessary)*/
 
@@ -36,6 +39,9 @@ k_tid_t thread_OUTPUTS_tid;       /* Create task IDs */
 K_THREAD_STACK_DEFINE(thread_SENSOR_stack, STACK_SIZE);  /* Create thread stack space */
 struct k_thread thread_SENSOR_data;  /* Create variables for thread data */
 k_tid_t thread_SENSOR_tid;       /* Create task IDs */
+
+
+static const struct i2c_dt_spec dev_i2c = I2C_DT_SPEC_GET(I2C0_NODE);
 
 void configure_threads()
 {
@@ -144,4 +150,40 @@ void thread_OUTPUTS_code()
 
 void thread_SENSOR_code()
 {
+    /* Local vars */
+    int64_t fin_time=0;
+    int64_t release_time=0;     /* Timing variables to control task periodicity */
+
+    uint8_t ret;
+
+    if (!device_is_ready(dev_i2c.bus)) 
+    {
+	printf("I2C bus %s is not ready!\n\r",dev_i2c.bus->name);
+	return;
+    }
+    uint8_t config[2] = {0x01,0x00};
+    ret = i2c_write_dt(&dev_i2c, config, sizeof(config));
+    if(ret != 0){
+	printf("Failed to write to I2C device address %x at reg. %x n", dev_i2c.addr,config[0]);
+    }
+    /* Compute next release instant */
+    release_time = k_uptime_get() + thread_UART_period;
+    while(1){
+    int8_t temp;
+
+    ret = i2c_read_dt(&dev_i2c, &temp, sizeof(temp));
+
+    printf("Temp is: %d", temp);
+    DB.ThermTemp = temp;
+    if(ret != 0){
+	printf("Failed to read from I2C device address %x at Reg. %x n", dev_i2c.addr,config[0]);
+    }
+
+        fin_time = k_uptime_get();
+        if( fin_time < release_time) 
+        {
+            k_msleep(release_time - fin_time);
+            release_time += thread_UART_period;
+        }
+    }
 }
