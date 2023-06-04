@@ -25,22 +25,7 @@
 #include <zephyr/timing/timing.h>   /* for timing services */
 #include "threads.h"
 #include "uart.h"
-
-struct DATABASE
-{
-    int8_t LED1;
-    int8_t LED2;
-    int8_t OUTPUT1;
-    int8_t OUTPUT2;
-    int8_t OUTPUT3;
-    int8_t OUTPUT4;
-    char* string_recieved;
-    int64_t ThermTemp;
-    uint32_t freq_UART;
-    uint32_t freq_INPUTS;
-    uint32_t freq_OUTPUTS;
-    uint32_t freq_SENSOR;
-}DATABASE;
+#include "button.h"
 
 struct DATABASE DB;
 
@@ -58,5 +43,6 @@ void main(void)
     button_config();
     configure_threads();
     UI();
+    
     return;
 } 

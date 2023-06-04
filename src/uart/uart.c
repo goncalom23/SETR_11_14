@@ -10,14 +10,12 @@
 
 #include "uart.h"
 
-#define UART_NODE DT_NODELABEL(uart0)   /* UART0 node ID*/
-#define MAIN_SLEEP_TIME_MS 1000 /* Time between main() activations */ 
+/* UART related variables */
+const struct device *uart_dev = DEVICE_DT_GET(UART_NODE);
+uint8_t rx_buf[RXBUF_SIZE];      /* RX buffer, to store received data */
+uint8_t rx_chars[RXBUF_SIZE];    /* chars actually received  */
+volatile int uart_rxbuf_nchar=0;        /* Number of chars currrntly on the rx buffer */
 
-#define FATAL_ERR -1 /* Fatal error return code, app terminates */
-
-#define RXBUF_SIZE 60                   /* RX buffer size */
-#define TXBUF_SIZE 60                   /* TX buffer size */
-#define RX_TIMEOUT 1000                 /* Inactivity period after the instant when last char was received that triggers an rx event (in us) */
 
 /* Struct for UART configuration (if using default values is not needed) */
 const struct uart_config uart_cfg = {
@@ -27,12 +25,6 @@ const struct uart_config uart_cfg = {
 		.data_bits = UART_CFG_DATA_BITS_8,
 		.flow_ctrl = UART_CFG_FLOW_CTRL_NONE
 };
-
-/* UART related variables */
-const struct device *uart_dev = DEVICE_DT_GET(UART_NODE);
-static uint8_t rx_buf[RXBUF_SIZE];      /* RX buffer, to store received data */
-static uint8_t rx_chars[RXBUF_SIZE];    /* chars actually received  */
-volatile int uart_rxbuf_nchar=0;        /* Number of chars currrntly on the rx buffer */
 
 
 void uartconfig(){

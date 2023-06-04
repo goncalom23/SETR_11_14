@@ -12,6 +12,7 @@
 #include <zephyr/devicetree.h>		    /*!< for DT_NODELABEL() */
 #include <zephyr/drivers/gpio.h>        /*!< for GPIO api*/
 #include <zephyr/sys/printk.h>          /*!< for printk()*/
+#include <stdio.h>
 
 #ifndef button_H
 #define button_H
@@ -25,7 +26,7 @@
 
 #define GPIO0_NODE DT_NODELABEL(gpio0)  /*!< Get node ID for GPIO0, which has leds and buttons */ 
 
-extern uint8_t button_state[8];         /* array to track all buttons state */
+extern uint8_t button_state[4];         /* array to track all buttons state */
 
 void button_pressed(const struct device *dev, struct gpio_callback *cb, uint32_t pins);
 void button_config();

@@ -15,9 +15,23 @@
 #include <stdio.h>                  /* for sprintf() */
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 #ifndef uart_H
 #define uart_H
+
+#define UART_NODE DT_NODELABEL(uart0)   /* UART0 node ID*/
+#define MAIN_SLEEP_TIME_MS 1000 /* Time between main() activations */ 
+
+#define FATAL_ERR -1 /* Fatal error return code, app terminates */
+
+#define RXBUF_SIZE 60                   /* RX buffer size */
+#define TXBUF_SIZE 60                   /* TX buffer size */
+#define RX_TIMEOUT 1000                 /* Inactivity period after the instant when last char was received that triggers an rx event (in us) */
+
+extern uint8_t rx_buf[RXBUF_SIZE];      /* RX buffer, to store received data */
+extern uint8_t rx_chars[RXBUF_SIZE];    /* chars actually received  */
+extern volatile int uart_rxbuf_nchar;        /* Number of chars currrntly on the rx buffer */
 
 void uartconfig();
 void uart_cb(const struct device *dev, struct uart_event *evt, void *user_data);

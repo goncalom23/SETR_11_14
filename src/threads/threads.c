@@ -9,11 +9,12 @@
  */
 
 #include "threads.h"
+#include "uart.h"
 
 #define STACK_SIZE 1024     /* Size of stack area used by each thread (can be thread specific, if necessary)*/
 
 #define thread_UART_prio 1       /* Thread scheduling priority */
-#define thread_UART_period 200         /* Therad periodicity (in ms)*/
+#define thread_UART_period 1000         /* Therad periodicity (in ms)*/
 K_THREAD_STACK_DEFINE(thread_UART_stack, STACK_SIZE);  /* Create thread stack space */
 struct k_thread thread_UART_data;  /* Create variables for thread data */
 k_tid_t thread_UART_tid;       /* Create task IDs */
@@ -67,16 +68,64 @@ void thread_UART_code(void *argA , void *argB, void *argC)
 
     /* Thread loop */
     while(1) 
-    {        
-        printf("Thread UART\n\r");  
-       
+    {       
+        printf("\nThread UART");  
+
+        if(rx_chars[uart_rxbuf_nchar-1] == '!')
+        {
+            int i = 0;
+            char number_aux[8];
+            while(rx_chars[i] != '#')
+            {
+                i++;
+                if(rx_chars[i] == '!')
+                {
+                    printf("\nMissing initiator -> '#");
+                    break;
+                }
+            }
+            if(rx_chars[i+1] == 'B' || rx_chars[i+1] == 'S' || rx_chars[i+1] == 'O' )
+            {
+                char *init = strchr(rx_chars, '#');
+                char *end = strchr(rx_chars, '!');
+                int len = end - init-1;
+                strncpy(number_aux, init+1, len);
+                number_aux[len+1] = '\0';
+                if(rx_chars[i+1] == 'B')
+                {
+                    DB.freq_INPUTS = atoi(number_aux);
+                    printf("DB.freq INPUTS: %i",DB.freq_INPUTS);
+                }
+                if(rx_chars[i+1] == 'S')
+                {
+                    DB.freq_SENSOR = atoi(number_aux);
+                    printf("DB.freq_SENSOR: %i",DB.freq_SENSOR);
+                }
+                if(rx_chars[i+1] == 'O')
+                {
+                    DB.freq_OUTPUTS = atoi(number_aux);
+                    printf("DB.freq_OUTPUTS: %i",DB.freq_OUTPUTS);
+                }
+            else
+            {
+                printf("\nMissing Command Caracter");
+                printf("\nString sent: %s",rx_chars);
+                break;
+            }
+        }
+
+            rx_chars[uart_rxbuf_nchar] = 0;
+            uart_rxbuf_nchar = 0;
+        }
+
+        printf("\nString sent: %s",rx_chars);
+
         /* Wait for next release instant */ 
         fin_time = k_uptime_get();
         if( fin_time < release_time) 
         {
             k_msleep(release_time - fin_time);
             release_time += thread_UART_period;
-
         }
     }
 
