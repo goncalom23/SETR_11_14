@@ -15,3 +15,8 @@ zephyr_include_directories(uart) #Add this line
 target_include_directories(app PRIVATE src/uart) #Add this line
 
 target_sources(app PRIVATE src/uart/uart.c) # Add module c source
+
+zephyr_include_directories(button) #Add this line
+target_include_directories(app PRIVATE src/button) #Add this line
+
+target_sources(app PRIVATE src/button/button.c) # Add module c source
