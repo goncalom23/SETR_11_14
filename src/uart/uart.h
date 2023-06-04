@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <ctype.h>
 
 #ifndef uart_H
 #define uart_H
@@ -36,4 +37,5 @@ extern volatile int uart_rxbuf_nchar;        /* Number of chars currrntly on the
 void uartconfig();
 void uart_cb(const struct device *dev, struct uart_event *evt, void *user_data);
 
+void enter_routine(void);
 #endif

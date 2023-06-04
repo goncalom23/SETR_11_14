@@ -69,8 +69,6 @@ void thread_UART_code(void *argA , void *argB, void *argC)
     /* Thread loop */
     while(1) 
     {       
-        printf("\nThread UART");  
-
         if(rx_chars[uart_rxbuf_nchar-1] == '!')
         {
             int i = 0;
@@ -118,6 +116,9 @@ void thread_UART_code(void *argA , void *argB, void *argC)
             uart_rxbuf_nchar = 0;
         }
 
+        //printf("\033[2J\033[H");
+        printf("\nAvailable commands:");
+        printf("\n/fbxxx /fsxxx /foxxx /bx /ox_y /sx");
         printf("\nString sent: %s",rx_chars);
 
         /* Wait for next release instant */ 

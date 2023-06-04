@@ -21,12 +21,12 @@
 
 struct DATABASE
 {
-    int8_t LED1;
-    int8_t LED2;
+    int8_t BUTTON1;
+    int8_t BUTTON2;
+    int8_t BUTTON3;
+    int8_t BUTTON4;
     int8_t OUTPUT1;
     int8_t OUTPUT2;
-    int8_t OUTPUT3;
-    int8_t OUTPUT4;
     char* string_recieved;
     int64_t ThermTemp;
     uint32_t freq_UART;
