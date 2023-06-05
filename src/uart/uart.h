@@ -35,7 +35,11 @@ extern uint8_t rx_chars[RXBUF_SIZE];    /* chars actually received  */
 extern volatile int uart_rxbuf_nchar;        /* Number of chars currrntly on the rx buffer */
 
 void uartconfig();
+
+void print_interface();
+
 void uart_cb(const struct device *dev, struct uart_event *evt, void *user_data);
 
-void enter_routine(void);
+void enter_routine(uint8_t rx_chars_aux[RXBUF_SIZE]);            // Executed when "Enter" is pressed on keyboard
+
 #endif

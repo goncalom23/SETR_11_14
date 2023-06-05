@@ -11,6 +11,7 @@
 #include <zephyr/drivers/i2c.h>
 #include "threads.h"
 #include "uart.h"
+#include "button.h"
 
 #define I2C0_NODE DT_NODELABEL(tempsensor)
 
@@ -75,57 +76,7 @@ void thread_UART_code(void *argA , void *argB, void *argC)
     /* Thread loop */
     while(1) 
     {       
-        if(rx_chars[uart_rxbuf_nchar-1] == '!')
-        {
-            int i = 0;
-            char number_aux[8];
-            while(rx_chars[i] != '#')
-            {
-                i++;
-                if(rx_chars[i] == '!')
-                {
-                    printf("\nMissing initiator -> '#");
-                    break;
-                }
-            }
-            if(rx_chars[i+1] == 'B' || rx_chars[i+1] == 'S' || rx_chars[i+1] == 'O' )
-            {
-                char *init = strchr(rx_chars, '#');
-                char *end = strchr(rx_chars, '!');
-                int len = end - init-1;
-                strncpy(number_aux, init+1, len);
-                number_aux[len+1] = '\0';
-                if(rx_chars[i+1] == 'B')
-                {
-                    DB.freq_INPUTS = atoi(number_aux);
-                    printf("DB.freq INPUTS: %i",DB.freq_INPUTS);
-                }
-                if(rx_chars[i+1] == 'S')
-                {
-                    DB.freq_SENSOR = atoi(number_aux);
-                    printf("DB.freq_SENSOR: %i",DB.freq_SENSOR);
-                }
-                if(rx_chars[i+1] == 'O')
-                {
-                    DB.freq_OUTPUTS = atoi(number_aux);
-                    printf("DB.freq_OUTPUTS: %i",DB.freq_OUTPUTS);
-                }
-            else
-            {
-                printf("\nMissing Command Caracter");
-                printf("\nString sent: %s",rx_chars);
-                break;
-            }
-        }
-
-            rx_chars[uart_rxbuf_nchar] = 0;
-            uart_rxbuf_nchar = 0;
-        }
-
-        //printf("\033[2J\033[H");
-        printf("\nAvailable commands:");
-        printf("\n/fbxxx /fsxxx /foxxx /bx /ox_y /sx");
-        printf("\nString sent: %s",rx_chars);
+        print_interface();
 
         /* Wait for next release instant */ 
         fin_time = k_uptime_get();
@@ -142,10 +93,106 @@ void thread_UART_code(void *argA , void *argB, void *argC)
 
 void thread_INPUTS_code()
 {
+
+    /* Local vars */
+    int64_t fin_time=0;
+    int64_t release_time=0;     /* Timing variables to control task periodicity */
+
+    /* Compute next release instant */
+    release_time = k_uptime_get() + thread_INPUTS_period;
+
+    /* Thread loop */
+    while(1) 
+    {       
+        DB.BUTTON1 = button_state[0];
+        DB.BUTTON2 = button_state[1];
+        DB.BUTTON3 = button_state[2];
+        DB.BUTTON4 = button_state[3];
+
+        /* Wait for next release instant */ 
+        fin_time = k_uptime_get();
+        if( fin_time < release_time) 
+        {
+            k_msleep(release_time - fin_time);
+            release_time += thread_INPUTS_period;
+        }
+    }
+
+
+
 }
+
+
+#define LED0_NID DT_NODELABEL(led0)
+#define LED1_NID DT_NODELABEL(led1)
+
+const struct gpio_dt_spec led0_dev = GPIO_DT_SPEC_GET(LED0_NID, gpios); /* GPIO device structure for LED0*/
+const struct gpio_dt_spec led1_dev = GPIO_DT_SPEC_GET(LED1_NID, gpios); /* GPIO device structure for LED1*/
+
 
 void thread_OUTPUTS_code()
 {
+    /* Local vars */
+    int64_t fin_time=0;
+    int64_t release_time=0;     /* Timing variables to control task periodicity */
+    int ret=0;                  /* Generic return value variable */
+
+	if (!device_is_ready(led0_dev.port))  
+	{
+        printk("Fatal error: led0 device not ready!");
+		return;
+	}
+    ret = gpio_pin_configure_dt(&led0_dev, GPIO_OUTPUT_ACTIVE);
+    if (ret < 0) 
+    {
+        printk("Failed to configure led0 \n\r");
+	    return;
+    }
+
+	if (!device_is_ready(led1_dev.port))  
+	{
+        printk("Fatal error: led1 device not ready!");
+		return;
+	}
+    ret = gpio_pin_configure_dt(&led1_dev, GPIO_OUTPUT_ACTIVE);
+    if (ret < 0) 
+    {
+        printk("Failed to configure led1 \n\r");
+	    return;
+    }
+
+
+    /* Compute next release instant */
+    release_time = k_uptime_get() + thread_OUTPUTS_period;
+    /* Thread loop */
+    while(1) 
+    {       
+        if(DB.OUTPUT1 == 1)
+        {
+            gpio_pin_set_dt(&led0_dev,1);
+        }
+        else if(DB.OUTPUT1 == 0)
+        {
+            gpio_pin_set_dt(&led0_dev,0);
+        } 
+
+        if(DB.OUTPUT2 == 1)
+        {
+            gpio_pin_set_dt(&led1_dev,1);
+        }
+        else if(DB.OUTPUT2 == 0)
+        {
+            gpio_pin_set_dt(&led1_dev,0);
+        } 
+
+
+        fin_time = k_uptime_get();
+        if( fin_time < release_time) 
+        {
+            k_msleep(release_time - fin_time);
+            release_time += thread_OUTPUTS_period;
+        }
+    }
 }
 
 void thread_SENSOR_code()
@@ -158,25 +205,27 @@ void thread_SENSOR_code()
 
     if (!device_is_ready(dev_i2c.bus)) 
     {
-	printf("I2C bus %s is not ready!\n\r",dev_i2c.bus->name);
+	printf("\nI2C bus %s is not ready!\n\r",dev_i2c.bus->name);
 	return;
     }
-    uint8_t config[2] = {0x01,0x00};
+    uint8_t config[2] = {0x00,0x00};
     ret = i2c_write_dt(&dev_i2c, config, sizeof(config));
-    if(ret != 0){
-	printf("Failed to write to I2C device address %x at reg. %x n", dev_i2c.addr,config[0]);
+    if(ret != 0)
+    {
+	printf("\nFailed to write to I2C device address %x at reg. %x n", dev_i2c.addr,config[0]);
     }
     /* Compute next release instant */
     release_time = k_uptime_get() + thread_UART_period;
-    while(1){
+    while(1)
+    {
     int8_t temp;
 
     ret = i2c_read_dt(&dev_i2c, &temp, sizeof(temp));
 
-    printf("Temp is: %d", temp);
     DB.ThermTemp = temp;
-    if(ret != 0){
-	printf("Failed to read from I2C device address %x at Reg. %x n", dev_i2c.addr,config[0]);
+    if(ret != 0)
+    {
+	printf("\nFailed to read from I2C device address %x at Reg. %x n", dev_i2c.addr,config[0]);
     }
 
         fin_time = k_uptime_get();

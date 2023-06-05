@@ -29,6 +29,20 @@ const struct uart_config uart_cfg =
 };
 
 
+void print_interface()
+{
+    printf("\033[2J\033[H");
+    printf("\nTemp is: %d", DB.ThermTemp);
+    printf("\nButton1 logic value: %u",DB.BUTTON1);
+    printf("\nButton2 logic value: %u",DB.BUTTON2);
+    printf("\nButton3 logic value: %u",DB.BUTTON3);
+    printf("\nButton4 logic value: %u",DB.BUTTON4);
+    printf("\nAvailable commands:");
+    printf("\n/fbxxx /fsxxx /foxxx /bx /ox_y /sx");
+    printf("\nString sent: %s",rx_chars);
+}
+
+
 void uartconfig()
 {
 /* Local vars */    
@@ -81,15 +95,15 @@ void uart_cb(const struct device *dev, struct uart_event *evt, void *user_data)
             memcpy(&rx_chars[uart_rxbuf_nchar],&(rx_buf[evt->data.rx.offset]),evt->data.rx.len);
             if(rx_chars[uart_rxbuf_nchar] == '\r')
             {
-                printf("\nenter pressed");
+                //printf("\nenter pressed");
                 rx_chars[uart_rxbuf_nchar + 1] = '\0'; //recolocar terminador 
-                enter_routine();
+                enter_routine(&rx_chars);
                 rx_chars[0] = '\0';
                 uart_rxbuf_nchar = 0;
             }
             else if(rx_chars[uart_rxbuf_nchar] == 127)
             {
-                printf("\nbackslash pressed");
+                //printf("\nbackslash pressed");
                 if(uart_rxbuf_nchar - 1 >= 0)
                 {
                     rx_chars[uart_rxbuf_nchar - 1] = '\0';
@@ -132,8 +146,9 @@ void uart_cb(const struct device *dev, struct uart_event *evt, void *user_data)
     }
 }
 
-void enter_routine(void)            // Executed when "Enter" is pressed on keyboard
+void enter_routine(uint8_t rx_chars_aux[RXBUF_SIZE])            // Executed when "Enter" is pressed on keyboard
 {
+    strcpy(rx_chars,rx_chars_aux);
     /* SET FREQUENCIES COMMAND 
     * example for frequency set 20Hz to sensores, buttons and outputs
     * /fs20
@@ -206,12 +221,12 @@ void enter_routine(void)            // Executed when "Enter" is pressed on keybo
     {
         if(rx_chars[2] == '1')
         {
-            DB.OUTPUT1 = (int)rx_chars[4];
+            DB.OUTPUT1 = rx_chars[4] - '0';
             printf("\nDB.OUTPUT1: %u",DB.OUTPUT1);
         }
         else if(rx_chars[2] == '2')
         {
-            DB.OUTPUT2 = (int)rx_chars[4];
+            DB.OUTPUT2 = rx_chars[4] - '0';
             printf("\nDB.OUTPUT2: %u",DB.OUTPUT2);
         }
         else

@@ -68,21 +68,10 @@ uint8_t button_state[4];                                            /* array to 
 void button_pressed(const struct device *dev, struct gpio_callback *cb, uint32_t pins)
 {
 	int i=0;
-
-	gpio_pin_toggle(gpio0_dev,LED1_PIN);                            /* Toggle led1 */
-
-	/* Identify the button(s) that was(ere) hit*/
-	for(i=0; i<sizeof(buttons_pins); i++)
-	{		
-		//button_state[i] = BIT(buttons_pins[i]) & pins;
-		if(BIT(buttons_pins[i]) & pins) 
-		{
-			button_state[i] = 1;
-		}
-		else{
-			button_state[i] = 0;
-		}
-	}   
+    for(i=0; i<sizeof(buttons_pins); i++)
+    {
+        button_state[i] = !gpio_pin_get(gpio0_dev,buttons_pins[i]);
+    }
 }
 
 /** \brief
@@ -110,15 +99,6 @@ void button_config()
 		printk("Success: gpio0 device is ready\n");
 	}
 
-	/* Configure the GPIO pins - LED1 for output and buttons 1-4 + IOPINS 2,4,28 and 29 for input
-	 * Use internal pull-up to avoid the need for an external resistor (buttons) */
-	ret = gpio_pin_configure(gpio0_dev,LED1_PIN, GPIO_OUTPUT_ACTIVE);
-	if (ret < 0) 
-    {
-		printk("Error: gpio_pin_configure failed for led1, error:%d\n\r", ret);
-		return;
-	}
-
 	for(i=0; i<sizeof(buttons_pins); i++) 
     {
 		ret = gpio_pin_configure(gpio0_dev, buttons_pins[i], GPIO_INPUT | GPIO_PULL_UP);
@@ -136,7 +116,7 @@ void button_config()
 	/* Configure the interrupt on the button's pin */
 	for(i=0; i<sizeof(buttons_pins); i++) 
     {
-		ret = gpio_pin_interrupt_configure(gpio0_dev, buttons_pins[i], GPIO_INT_EDGE_TO_ACTIVE );
+		ret = gpio_pin_interrupt_configure(gpio0_dev, buttons_pins[i], GPIO_INT_EDGE_BOTH );
 		if (ret < 0) 
         {
 			printk("Error: gpio_pin_interrupt_configure failed for button %d / pin %d, error:%d", i+1, buttons_pins[i], ret);
