@@ -28,7 +28,7 @@ struct DATABASE
     int8_t OUTPUT1;
     int8_t OUTPUT2;
     char* string_recieved;
-    int64_t ThermTemp;
+    int8_t ThermTemp;
     uint32_t freq_UART;
     uint32_t freq_INPUTS;
     uint32_t freq_OUTPUTS;
