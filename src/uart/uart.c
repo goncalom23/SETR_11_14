@@ -16,6 +16,7 @@ const struct device *uart_dev = DEVICE_DT_GET(UART_NODE);
 uint8_t rx_buf[RXBUF_SIZE];      /* RX buffer, to store received data */
 uint8_t rx_chars[RXBUF_SIZE];    /* chars actually received  */
 volatile int uart_rxbuf_nchar=0;        /* Number of chars currrntly on the rx buffer */
+uint8_t comand_state[RXBUF_SIZE];                     
 
 
 /* Struct for UART configuration (if using default values is not needed) */
@@ -32,14 +33,21 @@ const struct uart_config uart_cfg =
 void print_interface()
 {
     printf("\033[2J\033[H");
-    printf("\nTemp is: %d", DB.ThermTemp);
-    printf("\nButton1 logic value: %u",DB.BUTTON1);
-    printf("\nButton2 logic value: %u",DB.BUTTON2);
-    printf("\nButton3 logic value: %u",DB.BUTTON3);
-    printf("\nButton4 logic value: %u",DB.BUTTON4);
-    printf("\nAvailable commands:");
-    printf("\n/fbxxx /fsxxx /foxxx /bx /ox_y /sx");
-    printf("\nString sent: %s",rx_chars);
+    printf("\n UART frequency: %.0f", (int)1/(thread_UART_period* 0.001));
+    printf("\n INPUTS frequency: %.0f", (int)1/(thread_INPUTS_period* 0.001));
+    printf("\n OUTPUTS frequency: %.0f", (int)1/(thread_OUTPUTS_period* 0.001));
+    printf("\n SENSOR frequency: %.0f", (int)1/(thread_SENSOR_period * 0.001));
+    printf("\n");
+    /*printf("\n Temp is: %d", DB.ThermTemp);
+    printf("\n Button1 logic value: %u",DB.BUTTON1);
+    printf("\n Button2 logic value: %u",DB.BUTTON2);
+    printf("\n Button3 logic value: %u",DB.BUTTON3);
+    printf("\n Button4 logic value: %u",DB.BUTTON4);*/
+    printf("\n %s",comand_state);
+    printf("\n");
+    printf("\n Available commands:");
+    printf("\n /fuxxx /fbxxx /fsxxx /foxxx /bx /ox_y /s");
+    printf("\n String sent: %s",rx_chars);
 }
 
 
@@ -97,7 +105,7 @@ void uart_cb(const struct device *dev, struct uart_event *evt, void *user_data)
             {
                 //printf("\nenter pressed");
                 rx_chars[uart_rxbuf_nchar + 1] = '\0'; //recolocar terminador 
-                enter_routine(&rx_chars);
+                enter_routine(rx_chars);
                 rx_chars[0] = '\0';
                 uart_rxbuf_nchar = 0;
             }
@@ -155,7 +163,7 @@ void enter_routine(uint8_t rx_chars_aux[RXBUF_SIZE])            // Executed when
     * /fb20
     * /fo20
     */
-    if(rx_chars[0] == '/' && rx_chars[1] == 'f' && (rx_chars[2] == 'b' || rx_chars[2] == 's' || rx_chars[2] == 'o') )   
+    if(rx_chars[0] == '/' && rx_chars[1] == 'f' && (rx_chars[2] == 'b' || rx_chars[2] == 's' || rx_chars[2] == 'o' || rx_chars[2] == 'u') )   
     {
         char *init = strchr(rx_chars, 'f');
         char *end = strchr(rx_chars, '\r');
@@ -163,20 +171,25 @@ void enter_routine(uint8_t rx_chars_aux[RXBUF_SIZE])            // Executed when
         char number_aux[len];
         strncpy(number_aux, init+2, len);
         number_aux[len+1] = '\0';
+        if(rx_chars[2] == 'u')
+        {
+            thread_UART_period = 1/(atoi(number_aux) * 0.001);
+            printf("\nFreq UART: %f",thread_UART_period);
+        }
         if(rx_chars[2] == 'b')
         {
-            DB.freq_INPUTS = atoi(number_aux);
-            printf("\nDB.freq INPUTS: %i",DB.freq_INPUTS);
+            thread_INPUTS_period = 1/(atoi(number_aux) * 0.001);
+            printf("\nFreq INPUTS: %f",thread_INPUTS_period);
         }
         if(rx_chars[2] == 's')
         {
-            DB.freq_SENSOR = atoi(number_aux);
-            printf("\nDB.freq_SENSOR: %i",DB.freq_SENSOR);
+           thread_SENSOR_period = 1/(atoi(number_aux) * 0.001);
+            printf("\nFreq_SENSOR: %f",thread_SENSOR_period);
         }
         if(rx_chars[2] == 'o')
         {
-            DB.freq_OUTPUTS = atoi(number_aux);
-            printf("\nDB.freq_OUTPUTS: %i",DB.freq_OUTPUTS);
+            thread_OUTPUTS_period = 1/(atoi(number_aux) * 0.001);
+            printf("\nFreq_OUTPUTS: %f",thread_OUTPUTS_period);
         }
     }
 
@@ -186,24 +199,38 @@ void enter_routine(uint8_t rx_chars_aux[RXBUF_SIZE])            // Executed when
     */ 
     else if(rx_chars[0] == '/' && rx_chars[1] == 'b' && (isdigit(rx_chars[2]) == 1 ))            
     {
+        char *str_aux = "";
         if(rx_chars[2] == '1')
         {
-            printf("\nButton 1 state: %i",DB.BUTTON1);
+            uint8_t str_aux[RXBUF_SIZE];
+            uint8_t str_message[] = "Button 1 state: "; 
+            sprintf(str_aux,"%i",DB.BUTTON1);
+            strcat(str_message,str_aux);
+            strcpy(comand_state,str_message);
         }
         else if(rx_chars[2] == '2')
         {
-            printf("\nButton 2 state: %i",DB.BUTTON2);
-
+            uint8_t str_aux[RXBUF_SIZE];
+            uint8_t str_message[] = "Button 2 state: "; 
+            sprintf(str_aux,"%i",DB.BUTTON2);
+            strcat(str_message,str_aux);
+            strcpy(comand_state,str_message);
         }
         else if(rx_chars[2] == '3')
         {
-            printf("\nButton 3 state: %i",DB.BUTTON3);
-
+            uint8_t str_aux[RXBUF_SIZE];
+            uint8_t str_message[] = "Button 3 state: "; 
+            sprintf(str_aux,"%i",DB.BUTTON3);
+            strcat(str_message,str_aux);
+            strcpy(comand_state,str_message);
         }
         else if(rx_chars[2] == '4')
         {
-            printf("\nButton 4 state: %i",DB.BUTTON4);
-
+            uint8_t str_aux[RXBUF_SIZE];
+            uint8_t str_message[] = "Button 4 state: "; 
+            sprintf(str_aux,"%i",DB.BUTTON4);
+            strcat(str_message,str_aux);
+            strcpy(comand_state,str_message);
         }
         else
         {
@@ -222,12 +249,12 @@ void enter_routine(uint8_t rx_chars_aux[RXBUF_SIZE])            // Executed when
         if(rx_chars[2] == '1')
         {
             DB.OUTPUT1 = rx_chars[4] - '0';
-            printf("\nDB.OUTPUT1: %u",DB.OUTPUT1);
+            //printf("\nDB.OUTPUT1: %u",DB.OUTPUT1);
         }
         else if(rx_chars[2] == '2')
         {
             DB.OUTPUT2 = rx_chars[4] - '0';
-            printf("\nDB.OUTPUT2: %u",DB.OUTPUT2);
+            //printf("\nDB.OUTPUT2: %u",DB.OUTPUT2);
         }
         else
         {
@@ -240,6 +267,11 @@ void enter_routine(uint8_t rx_chars_aux[RXBUF_SIZE])            // Executed when
     /* read sensor state */ 
     else if(rx_chars[0] == '/' && rx_chars[1] == 's')            
     {
+        uint8_t str_aux[RXBUF_SIZE];
+        uint8_t str_message[] = "Sensor temperature is: "; 
+        sprintf(str_aux,"%d",DB.ThermTemp);
+        strcat(str_message,str_aux);
+        strcpy(comand_state,str_message);
     }
 
     else

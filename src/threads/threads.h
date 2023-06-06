@@ -29,13 +29,15 @@ struct DATABASE
     int8_t OUTPUT2;
     char* string_recieved;
     int8_t ThermTemp;
-    uint32_t freq_UART;
-    uint32_t freq_INPUTS;
-    uint32_t freq_OUTPUTS;
-    uint32_t freq_SENSOR;
 };
 
 extern struct DATABASE DB;
+
+extern float thread_UART_period;     /* Thread periodicity (in ms)*/
+extern float thread_INPUTS_period;         /* Thread periodicity (in ms)*/
+extern float thread_OUTPUTS_period;         /* Thread periodicity (in ms)*/
+extern float thread_SENSOR_period;         /* Thread periodicity (in ms)*/
+
 
 void configure_threads();
 void thread_UART_code(void *argA, void *argB, void *argC); /* Thread code prototypes */

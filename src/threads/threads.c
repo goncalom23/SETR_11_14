@@ -18,25 +18,25 @@
 #define STACK_SIZE 1024     /* Size of stack area used by each thread (can be thread specific, if necessary)*/
 
 #define thread_UART_prio 1       /* Thread scheduling priority */
-#define thread_UART_period 1000         /* Therad periodicity (in ms)*/
+float thread_UART_period = 1000;
 K_THREAD_STACK_DEFINE(thread_UART_stack, STACK_SIZE);  /* Create thread stack space */
 struct k_thread thread_UART_data;  /* Create variables for thread data */
 k_tid_t thread_UART_tid;       /* Create task IDs */
 
 #define thread_INPUTS_prio 1       /* Thread scheduling priority */
-#define thread_INPUTS_period 200         /* Therad periodicity (in ms)*/
+float thread_INPUTS_period = 200;         /* Thread periodicity (in ms)*/
 K_THREAD_STACK_DEFINE(thread_INPUTS_stack, STACK_SIZE);  /* Create thread stack space */
 struct k_thread thread_INPUTS_data;  /* Create variables for thread data */
 k_tid_t thread_INPUTS_tid;       /* Create task IDs */
 
 #define thread_OUTPUTS_prio 1       /* Thread scheduling priority */
-#define thread_OUTPUTS_period 200         /* Therad periodicity (in ms)*/
+float thread_OUTPUTS_period = 200;         /* Thread periodicity (in ms)*/
 K_THREAD_STACK_DEFINE(thread_OUTPUTS_stack, STACK_SIZE);  /* Create thread stack space */
 struct k_thread thread_OUTPUTS_data;  /* Create variables for thread data */
 k_tid_t thread_OUTPUTS_tid;       /* Create task IDs */
 
 #define thread_SENSOR_prio 1       /* Thread scheduling priority */
-#define thread_SENSOR_period 200         /* Therad periodicity (in ms)*/
+float thread_SENSOR_period = 200;         /* Thread periodicity (in ms)*/
 K_THREAD_STACK_DEFINE(thread_SENSOR_stack, STACK_SIZE);  /* Create thread stack space */
 struct k_thread thread_SENSOR_data;  /* Create variables for thread data */
 k_tid_t thread_SENSOR_tid;       /* Create task IDs */

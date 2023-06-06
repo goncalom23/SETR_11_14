@@ -29,20 +29,11 @@
 
 struct DATABASE DB;
 
-void UI()
-{
-    printf("\033[2J\033[H");                                // clear window code
-    printf("\n String Recieved= %s", DB.string_recieved); 
-    printf("\n"); 
-    //printf("\n%s Movie A, 19H00 session, 9 EUR",arrow[0]); 
-}
-
 void main(void) 
 {
     uartconfig();
     button_config();
     configure_threads();
-    UI();
     
     return;
 } 
