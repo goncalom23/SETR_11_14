@@ -41,6 +41,9 @@ K_THREAD_STACK_DEFINE(thread_SENSOR_stack, STACK_SIZE);  /* Create thread stack 
 struct k_thread thread_SENSOR_data;  /* Create variables for thread data */
 k_tid_t thread_SENSOR_tid;       /* Create task IDs */
 
+struct k_sem sem_sensor;
+struct k_sem sem_bc;
+
 
 static const struct i2c_dt_spec dev_i2c = I2C_DT_SPEC_GET(I2C0_NODE);
 
@@ -61,6 +64,9 @@ void configure_threads()
     thread_SENSOR_tid = k_thread_create(&thread_SENSOR_data, thread_SENSOR_stack,
     K_THREAD_STACK_SIZEOF(thread_SENSOR_stack), thread_SENSOR_code,
     NULL, NULL, NULL, thread_SENSOR_prio, 0, K_NO_WAIT);
+
+    k_sem_init(&sem_sensor, 1, 1);
+    k_sem_init(&sem_bc, 0, 1);
 }
 
 /* Thread code implementation */
@@ -75,9 +81,10 @@ void thread_UART_code(void *argA , void *argB, void *argC)
 
     /* Thread loop */
     while(1) 
-    {       
+    {   
+        k_sem_take(&sem_sensor,  K_FOREVER);
         print_interface();
-
+        k_sem_give(&sem_sensor); 
         /* Wait for next release instant */ 
         fin_time = k_uptime_get();
         if( fin_time < release_time) 
@@ -202,7 +209,6 @@ void thread_SENSOR_code()
     int64_t release_time=0;     /* Timing variables to control task periodicity */
 
     uint8_t ret;
-
     if (!device_is_ready(dev_i2c.bus)) 
     {
 	printf("\nI2C bus %s is not ready!\n\r",dev_i2c.bus->name);
@@ -221,8 +227,9 @@ void thread_SENSOR_code()
     int8_t temp;
 
     ret = i2c_read_dt(&dev_i2c, &temp, sizeof(temp));
-
+    k_sem_take(&sem_sensor,  K_FOREVER);
     DB.ThermTemp = temp;
+    k_sem_give(&sem_sensor);
     if(ret != 0)
     {
 	printf("\nFailed to read from I2C device address %x at Reg. %x n", dev_i2c.addr,config[0]);
