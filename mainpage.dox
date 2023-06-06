@@ -1,0 +1,12 @@
+/*! \mainpage SETR_Lab11_14 Documentation
+ *
+ *  \authors Gonçalo Martins <goncalom23@ua.pt> and Filipe Silva <filipe.msilva@ua.pt>
+ *
+ * SETR 22/23, Assignment 4 - Real-Time Embedded Application Development using Zephyr
+ *
+ * The aim of this short project is to implement simple Input/Output sensor/actuator modules, which
+ * are core parts of modern IoT and IIoT applications. 
+ * 
+ * \bug No known bugs.
+ */ 
+
