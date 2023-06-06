@@ -199,38 +199,45 @@ void enter_routine(uint8_t rx_chars_aux[RXBUF_SIZE])            // Executed when
     */ 
     else if(rx_chars[0] == '/' && rx_chars[1] == 'b' && (isdigit(rx_chars[2]) == 1 ))            
     {
-        char *str_aux = "";
         if(rx_chars[2] == '1')
         {
+            k_sem_take(&sem_inputs,  K_FOREVER);   
             uint8_t str_aux[RXBUF_SIZE];
             uint8_t str_message[] = "Button 1 state: "; 
             sprintf(str_aux,"%i",DB.BUTTON1);
             strcat(str_message,str_aux);
             strcpy(comand_state,str_message);
+            k_sem_give(&sem_inputs);   
         }
         else if(rx_chars[2] == '2')
         {
+            k_sem_take(&sem_inputs,  K_FOREVER); 
             uint8_t str_aux[RXBUF_SIZE];
             uint8_t str_message[] = "Button 2 state: "; 
             sprintf(str_aux,"%i",DB.BUTTON2);
             strcat(str_message,str_aux);
             strcpy(comand_state,str_message);
+            k_sem_give(&sem_inputs);   
         }
         else if(rx_chars[2] == '3')
         {
+            k_sem_take(&sem_inputs,  K_FOREVER); 
             uint8_t str_aux[RXBUF_SIZE];
             uint8_t str_message[] = "Button 3 state: "; 
             sprintf(str_aux,"%i",DB.BUTTON3);
             strcat(str_message,str_aux);
             strcpy(comand_state,str_message);
+            k_sem_give(&sem_inputs);  
         }
         else if(rx_chars[2] == '4')
         {
+            k_sem_take(&sem_inputs,  K_FOREVER); 
             uint8_t str_aux[RXBUF_SIZE];
             uint8_t str_message[] = "Button 4 state: "; 
             sprintf(str_aux,"%i",DB.BUTTON4);
             strcat(str_message,str_aux);
             strcpy(comand_state,str_message);
+            k_sem_give(&sem_inputs);  
         }
         else
         {
@@ -248,12 +255,16 @@ void enter_routine(uint8_t rx_chars_aux[RXBUF_SIZE])            // Executed when
     {
         if(rx_chars[2] == '1')
         {
+            k_sem_take(&sem_outputs,  K_FOREVER);   
             DB.OUTPUT1 = rx_chars[4] - '0';
+            k_sem_give(&sem_outputs);
             //printf("\nDB.OUTPUT1: %u",DB.OUTPUT1);
         }
         else if(rx_chars[2] == '2')
         {
+            k_sem_take(&sem_outputs,  K_FOREVER);   
             DB.OUTPUT2 = rx_chars[4] - '0';
+            k_sem_give(&sem_outputs);
             //printf("\nDB.OUTPUT2: %u",DB.OUTPUT2);
         }
         else
@@ -269,7 +280,9 @@ void enter_routine(uint8_t rx_chars_aux[RXBUF_SIZE])            // Executed when
     {
         uint8_t str_aux[RXBUF_SIZE];
         uint8_t str_message[] = "Sensor temperature is: "; 
+        k_sem_take(&sem_sensor,  K_FOREVER);
         sprintf(str_aux,"%d",DB.ThermTemp);
+        k_sem_give(&sem_sensor); 
         strcat(str_message,str_aux);
         strcpy(comand_state,str_message);
     }

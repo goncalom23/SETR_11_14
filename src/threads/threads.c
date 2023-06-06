@@ -42,7 +42,9 @@ struct k_thread thread_SENSOR_data;  /* Create variables for thread data */
 k_tid_t thread_SENSOR_tid;       /* Create task IDs */
 
 struct k_sem sem_sensor;
-struct k_sem sem_bc;
+struct k_sem sem_inputs;
+struct k_sem sem_outputs;
+
 
 
 static const struct i2c_dt_spec dev_i2c = I2C_DT_SPEC_GET(I2C0_NODE);
@@ -66,7 +68,8 @@ void configure_threads()
     NULL, NULL, NULL, thread_SENSOR_prio, 0, K_NO_WAIT);
 
     k_sem_init(&sem_sensor, 1, 1);
-    k_sem_init(&sem_bc, 0, 1);
+    k_sem_init(&sem_inputs, 0, 1);
+    k_sem_init(&sem_outputs, 0, 1);
 }
 
 /* Thread code implementation */
@@ -82,9 +85,7 @@ void thread_UART_code(void *argA , void *argB, void *argC)
     /* Thread loop */
     while(1) 
     {   
-        k_sem_take(&sem_sensor,  K_FOREVER);
         print_interface();
-        k_sem_give(&sem_sensor); 
         /* Wait for next release instant */ 
         fin_time = k_uptime_get();
         if( fin_time < release_time) 
@@ -111,10 +112,12 @@ void thread_INPUTS_code()
     /* Thread loop */
     while(1) 
     {       
+        k_sem_take(&sem_inputs,  K_FOREVER);
         DB.BUTTON1 = button_state[0];
         DB.BUTTON2 = button_state[1];
         DB.BUTTON3 = button_state[2];
         DB.BUTTON4 = button_state[3];
+        k_sem_give(&sem_inputs);
 
         /* Wait for next release instant */ 
         fin_time = k_uptime_get();
@@ -129,51 +132,18 @@ void thread_INPUTS_code()
 
 }
 
-
-#define LED0_NID DT_NODELABEL(led0)
-#define LED1_NID DT_NODELABEL(led1)
-
-const struct gpio_dt_spec led0_dev = GPIO_DT_SPEC_GET(LED0_NID, gpios); /* GPIO device structure for LED0*/
-const struct gpio_dt_spec led1_dev = GPIO_DT_SPEC_GET(LED1_NID, gpios); /* GPIO device structure for LED1*/
-
-
 void thread_OUTPUTS_code()
 {
     /* Local vars */
     int64_t fin_time=0;
     int64_t release_time=0;     /* Timing variables to control task periodicity */
-    int ret=0;                  /* Generic return value variable */
-
-	if (!device_is_ready(led0_dev.port))  
-	{
-        printk("Fatal error: led0 device not ready!");
-		return;
-	}
-    ret = gpio_pin_configure_dt(&led0_dev, GPIO_OUTPUT_ACTIVE);
-    if (ret < 0) 
-    {
-        printk("Failed to configure led0 \n\r");
-	    return;
-    }
-
-	if (!device_is_ready(led1_dev.port))  
-	{
-        printk("Fatal error: led1 device not ready!");
-		return;
-	}
-    ret = gpio_pin_configure_dt(&led1_dev, GPIO_OUTPUT_ACTIVE);
-    if (ret < 0) 
-    {
-        printk("Failed to configure led1 \n\r");
-	    return;
-    }
-
 
     /* Compute next release instant */
     release_time = k_uptime_get() + thread_OUTPUTS_period;
     /* Thread loop */
     while(1) 
-    {       
+    { 
+        k_sem_take(&sem_outputs,  K_FOREVER);   
         if(DB.OUTPUT1 == 1)
         {
             gpio_pin_set_dt(&led0_dev,1);
@@ -191,6 +161,7 @@ void thread_OUTPUTS_code()
         {
             gpio_pin_set_dt(&led1_dev,0);
         } 
+        k_sem_give(&sem_outputs);   
 
 
         fin_time = k_uptime_get();

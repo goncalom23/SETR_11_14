@@ -32,6 +32,12 @@ struct DATABASE
 };
 
 extern struct DATABASE DB;
+extern struct k_sem sem_sensor;
+extern struct k_sem sem_inputs;
+extern struct k_sem sem_outputs;
+
+extern struct gpio_dt_spec led0_dev;
+extern struct gpio_dt_spec led1_dev;
 
 extern float thread_UART_period;     /* Thread periodicity (in ms)*/
 extern float thread_INPUTS_period;         /* Thread periodicity (in ms)*/
