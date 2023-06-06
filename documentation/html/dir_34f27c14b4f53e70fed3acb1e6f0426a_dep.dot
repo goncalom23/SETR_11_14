@@ -1,0 +1,12 @@
+digraph "build/modules/hal_nordic/nrfx/CMakeFiles/modules__hal_nordic__nrfx.dir/home/rt/ncs/modules/hal/nordic/nrfx/drivers/src"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_70c5db34fe5f594c9be569db1cb4fc71 {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="drivers", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_70c5db34fe5f594c9be569db1cb4fc71.html",tooltip=""]
+  dir_34f27c14b4f53e70fed3acb1e6f0426a [label="src", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_34f27c14b4f53e70fed3acb1e6f0426a.html",tooltip=""];
+  }
+}

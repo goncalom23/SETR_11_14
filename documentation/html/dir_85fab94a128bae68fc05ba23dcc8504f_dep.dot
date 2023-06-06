@@ -1,0 +1,12 @@
+digraph "build/modules/nrf/modules"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_5197197c98a0a342b5a94dcc36389f3e {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="nrf", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_5197197c98a0a342b5a94dcc36389f3e.html",tooltip=""]
+  dir_85fab94a128bae68fc05ba23dcc8504f [label="modules", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_85fab94a128bae68fc05ba23dcc8504f.html",tooltip=""];
+  }
+}

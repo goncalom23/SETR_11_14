@@ -1,0 +1,16 @@
+digraph "build/CMakeFiles/app.dir"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_63772b626f2709090f0bdca0f40827b4 {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="CMakeFiles", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_63772b626f2709090f0bdca0f40827b4.html",tooltip=""]
+  subgraph clusterdir_b02ae3321e25fea60290a6c4bb44713a {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_b02ae3321e25fea60290a6c4bb44713a.html",tooltip=""]
+    dir_b02ae3321e25fea60290a6c4bb44713a [shape=plaintext, label="app.dir"];
+  dir_7de0b172922f3935c4f9658e130dee78 [label="src", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_7de0b172922f3935c4f9658e130dee78.html",tooltip=""];
+  }
+  }
+}

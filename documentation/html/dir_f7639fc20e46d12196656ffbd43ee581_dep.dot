@@ -1,0 +1,27 @@
+digraph "build/zephyr"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_4fef79e7177ba769987a8da36c892c5f {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="build", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_4fef79e7177ba769987a8da36c892c5f.html",tooltip=""]
+  subgraph clusterdir_f7639fc20e46d12196656ffbd43ee581 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_f7639fc20e46d12196656ffbd43ee581.html",tooltip=""]
+    dir_f7639fc20e46d12196656ffbd43ee581 [shape=plaintext, label="zephyr"];
+  dir_e092704924e2803980727e6294825109 [label="arch", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_e092704924e2803980727e6294825109.html",tooltip=""];
+  dir_cec78bb0057d7b164bc72e50ff75eca3 [label="boards", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_cec78bb0057d7b164bc72e50ff75eca3.html",tooltip=""];
+  dir_07bd187a3cfe52e987043f5f314e8f54 [label="cmake", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_07bd187a3cfe52e987043f5f314e8f54.html",tooltip=""];
+  dir_948b8a6c94d9d992f64095dfa270ba5f [label="CMakeFiles", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_948b8a6c94d9d992f64095dfa270ba5f.html",tooltip=""];
+  dir_7e6061be0aff2d25b0e3c217cf063271 [label="drivers", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_7e6061be0aff2d25b0e3c217cf063271.html",tooltip=""];
+  dir_471403f4ed3a2fe1342497e0673d2db8 [label="include", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_471403f4ed3a2fe1342497e0673d2db8.html",tooltip=""];
+  dir_e30e061759a6dfbe6dc1ca313afc0cf1 [label="kconfig", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_e30e061759a6dfbe6dc1ca313afc0cf1.html",tooltip=""];
+  dir_cdb6973de6ddf6aad3db35fd65bf6ecc [label="kernel", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_cdb6973de6ddf6aad3db35fd65bf6ecc.html",tooltip=""];
+  dir_a2b984bf63b18e12150a9fb1475ff0cc [label="lib", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_a2b984bf63b18e12150a9fb1475ff0cc.html",tooltip=""];
+  dir_7fc26d2992a90cc1938899feb2b0ae3d [label="misc", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_7fc26d2992a90cc1938899feb2b0ae3d.html",tooltip=""];
+  dir_87d38314df1e3dff4ca78eb3585247df [label="soc", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_87d38314df1e3dff4ca78eb3585247df.html",tooltip=""];
+  dir_fee2df84931cf9d66e516b35c2f3fff7 [label="subsys", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_fee2df84931cf9d66e516b35c2f3fff7.html",tooltip=""];
+  }
+  }
+}

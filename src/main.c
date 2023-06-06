@@ -5,6 +5,8 @@
         \brief
         SETR 22/23, Assignment 4 - Real-Time Embedded Application Development using Zephyr
 
+    The aim of this short project is to implement simple Input/Output sensor/actuator modules, which
+    are core parts of modern IoT and IIoT applications. 
     */
 
 #include <zephyr/kernel.h>          /* for kernel functions*/

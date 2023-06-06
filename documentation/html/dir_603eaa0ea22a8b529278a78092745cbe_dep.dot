@@ -1,0 +1,17 @@
+digraph "build/modules/nrfxlib"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_587cd7e785de0867f5b3392122b4ea11 {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="modules", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_587cd7e785de0867f5b3392122b4ea11.html",tooltip=""]
+  subgraph clusterdir_603eaa0ea22a8b529278a78092745cbe {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_603eaa0ea22a8b529278a78092745cbe.html",tooltip=""]
+    dir_603eaa0ea22a8b529278a78092745cbe [shape=plaintext, label="nrfxlib"];
+  dir_5403f058483b8a15426c9b2864a87601 [label="nrf_802154", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_5403f058483b8a15426c9b2864a87601.html",tooltip=""];
+  dir_877b11f81938b3c68b0897651dbb8db9 [label="nrfxlib", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_877b11f81938b3c68b0897651dbb8db9.html",tooltip=""];
+  }
+  }
+}

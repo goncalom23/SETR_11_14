@@ -1,0 +1,12 @@
+digraph "build/CMakeFiles/app.dir/src/threads"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_7de0b172922f3935c4f9658e130dee78 {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="src", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_7de0b172922f3935c4f9658e130dee78.html",tooltip=""]
+  dir_afa340f4616a050782963c7199b32b19 [label="threads", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_afa340f4616a050782963c7199b32b19.html",tooltip=""];
+  }
+}

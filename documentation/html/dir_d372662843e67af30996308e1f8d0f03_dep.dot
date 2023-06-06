@@ -1,0 +1,12 @@
+digraph "build/zephyr/drivers/serial/CMakeFiles/drivers__serial.dir"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_5dcd2c7d96efa6b730cae8ebf5744e4d {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="CMakeFiles", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_5dcd2c7d96efa6b730cae8ebf5744e4d.html",tooltip=""]
+  dir_d372662843e67af30996308e1f8d0f03 [label="drivers__serial.dir", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_d372662843e67af30996308e1f8d0f03.html",tooltip=""];
+  }
+}

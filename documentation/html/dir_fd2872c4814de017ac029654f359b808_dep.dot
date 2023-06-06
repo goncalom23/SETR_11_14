@@ -1,0 +1,12 @@
+digraph "build/zephyr/CMakeFiles/zephyr_pre1.dir/misc"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_b82c14d9511ebeef9b5582404cf27387 {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="zephyr_pre1.dir", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_b82c14d9511ebeef9b5582404cf27387.html",tooltip=""]
+  dir_fd2872c4814de017ac029654f359b808 [label="misc", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_fd2872c4814de017ac029654f359b808.html",tooltip=""];
+  }
+}

@@ -1,0 +1,16 @@
+digraph "build/modules/segger/CMakeFiles/modules__segger.dir/home/rt/ncs/modules/debug/segger"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_0f51d167858f824e92802311f0ed60aa {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="debug", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_0f51d167858f824e92802311f0ed60aa.html",tooltip=""]
+  subgraph clusterdir_cfa76dbe0896e231f043d8f572062407 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_cfa76dbe0896e231f043d8f572062407.html",tooltip=""]
+    dir_cfa76dbe0896e231f043d8f572062407 [shape=plaintext, label="segger"];
+  dir_fd87c437719c85fe508e32a37e5a37c0 [label="SEGGER", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_fd87c437719c85fe508e32a37e5a37c0.html",tooltip=""];
+  }
+  }
+}

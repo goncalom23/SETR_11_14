@@ -1,0 +1,16 @@
+digraph "build/zephyr/CMakeFiles/zephyr.dir/soc/arm"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_5462dd1923cbcd3df975e626d413fced {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="soc", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_5462dd1923cbcd3df975e626d413fced.html",tooltip=""]
+  subgraph clusterdir_c659cda04367c7109746e5aeb9d21144 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_c659cda04367c7109746e5aeb9d21144.html",tooltip=""]
+    dir_c659cda04367c7109746e5aeb9d21144 [shape=plaintext, label="arm"];
+  dir_ae1f8f0b3c8f3b10d2b3729668b14cbb [label="nordic_nrf", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_ae1f8f0b3c8f3b10d2b3729668b14cbb.html",tooltip=""];
+  }
+  }
+}

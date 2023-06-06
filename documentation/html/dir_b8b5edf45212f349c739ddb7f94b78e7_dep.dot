@@ -1,0 +1,16 @@
+digraph "build/zephyr/lib/libc/minimal"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_1475029396945517e6ab11995f70038c {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="libc", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_1475029396945517e6ab11995f70038c.html",tooltip=""]
+  subgraph clusterdir_b8b5edf45212f349c739ddb7f94b78e7 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_b8b5edf45212f349c739ddb7f94b78e7.html",tooltip=""]
+    dir_b8b5edf45212f349c739ddb7f94b78e7 [shape=plaintext, label="minimal"];
+  dir_540f50e527ceb7c8d7adac5190aa21bc [label="CMakeFiles", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_540f50e527ceb7c8d7adac5190aa21bc.html",tooltip=""];
+  }
+  }
+}

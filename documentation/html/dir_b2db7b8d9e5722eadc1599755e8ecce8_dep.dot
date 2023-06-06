@@ -1,0 +1,17 @@
+digraph "build/zephyr/soc/arm"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_87d38314df1e3dff4ca78eb3585247df {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="soc", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_87d38314df1e3dff4ca78eb3585247df.html",tooltip=""]
+  subgraph clusterdir_b2db7b8d9e5722eadc1599755e8ecce8 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_b2db7b8d9e5722eadc1599755e8ecce8.html",tooltip=""]
+    dir_b2db7b8d9e5722eadc1599755e8ecce8 [shape=plaintext, label="arm"];
+  dir_97c619bf42ea85b67803acb39de4afee [label="common", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_97c619bf42ea85b67803acb39de4afee.html",tooltip=""];
+  dir_32935d3dde786a9cacbbbdf279095902 [label="nordic_nrf", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_32935d3dde786a9cacbbbdf279095902.html",tooltip=""];
+  }
+  }
+}
