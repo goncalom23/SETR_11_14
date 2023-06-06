@@ -1,22 +1,20 @@
 /*!
- * \file:   uart.c
- * \author: Gonçalo Martins <goncalom23@ua.pt> and Filipe Silva <filipe.msilva@ua.pt> base on the
- * example code provided by Prof. Paulo Pedreiras
- * 
- * \date May 29, 2023, 10:15 PM
- * \brief
- * 
- */
+* \file uart.c
+* \author Gonçalo Martins goncalom23@ua.pt and Filipe Silva filipe.msilva@ua.pt
+* \brief UART module for handling UART communication
+* This file provides functions for configuring the UART and handling UART events, such as data reception and transmission.
+* \date May 29, 2023, 10:15 PM
+*/
 
 #include "uart.h"
 #include "threads.h"
 
 /* UART related variables */
-const struct device *uart_dev = DEVICE_DT_GET(UART_NODE);
-uint8_t rx_buf[RXBUF_SIZE];      /* RX buffer, to store received data */
-uint8_t rx_chars[RXBUF_SIZE];    /* chars actually received  */
-volatile int uart_rxbuf_nchar=0;        /* Number of chars currrntly on the rx buffer */
-uint8_t comand_state[RXBUF_SIZE]; 
+const struct device *uart_dev = DEVICE_DT_GET(UART_NODE);   /**< UART device instance */
+uint8_t rx_buf[RXBUF_SIZE];             /**< RX buffer, to store received data */
+uint8_t rx_chars[RXBUF_SIZE];           /**< chars actually received  */
+volatile int uart_rxbuf_nchar=0;        /**< Number of chars currrntly on the rx buffer */
+uint8_t comand_state[RXBUF_SIZE];       /**< Output sent to the interface depending on user commands */
 uint8_t Led_1_new;
 uint8_t Led_2_new;                    
 
@@ -31,7 +29,9 @@ const struct uart_config uart_cfg =
 		.flow_ctrl = UART_CFG_FLOW_CTRL_NONE
 };
 
-
+/*!
+ * \brief Prints the interface information.
+ */
 void print_interface()
 {
     printf("\033[2J\033[H");
@@ -52,7 +52,9 @@ void print_interface()
     printf("\n String sent: %s",rx_chars);
 }
 
-
+/*!
+ * \brief Configures the UART.
+ */
 void uartconfig()
 {
 /* Local vars */    
@@ -81,10 +83,17 @@ void uartconfig()
 }
 
 
-/* UART callback implementation */
-/* Note that callback functions are executed in the scope of interrupt handlers. */
-/* They run asynchronously after hardware/software interrupts and have a higher priority than all threads */
-/* Should be kept as short and simple as possible. Heavier processing should be deferred to a task with suitable priority*/
+
+/*!
+ * \brief UART callback function.
+ * UART callback implementation 
+ * Note that callback functions are executed in the scope of interrupt handlers. 
+ * They run asynchronously after hardware/software interrupts and have a higher priority than all threads 
+ * Should be kept as short and simple as possible. Heavier processing should be deferred to a task with suitable priority
+ * \param dev The UART device.
+ * \param evt The UART event.
+ * \param user_data User data.
+ */
 void uart_cb(const struct device *dev, struct uart_event *evt, void *user_data)
 {
     int err;
@@ -156,6 +165,11 @@ void uart_cb(const struct device *dev, struct uart_event *evt, void *user_data)
     }
 }
 
+/*!
+ * \brief Routine executed when "Enter" is pressed on the keyboard.
+ *
+ * \param rx_chars_aux The received characters.
+ */
 void enter_routine(uint8_t rx_chars_aux[RXBUF_SIZE])            // Executed when "Enter" is pressed on keyboard
 {
     strcpy(rx_chars,rx_chars_aux);

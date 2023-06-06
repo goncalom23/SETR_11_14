@@ -39,6 +39,7 @@
  * 
  *  Gonçalo Martins and Filipe Silva:
  *  Added array to track button states.
+ *  Callback both rising and falling edge
  * 	Modular and doxygen implementaiton;
  */
 

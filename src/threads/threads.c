@@ -1,11 +1,9 @@
 /*!
- * \file:   threads.c
- * \author: Gonçalo Martins <goncalom23@ua.pt> and Filipe Silva <filipe.msilva@ua.pt> base on the
- * example code provided by Prof. Paulo Pedreiras
+ * \file   threads.c
+ * \author Gonçalo Martins <goncalom23@ua.pt> and Filipe Silva <filipe.msilva@ua.pt> 
  * 
- * \date May 23, 2023, 10:44 AM
- * \brief
- * 
+ * \date   May 23, 2023, 10:44 AM
+ * \brief  Thread management implementation
  */
 
 #include <zephyr/drivers/i2c.h>
@@ -15,52 +13,55 @@
 
 #define I2C0_NODE DT_NODELABEL(tempsensor)
 
-#define STACK_SIZE 1024     /* Size of stack area used by each thread (can be thread specific, if necessary)*/
+#define STACK_SIZE 1024                     /**< Size of stack area used by each thread (can be thread specific, if necessary) */
 
-#define thread_UART_prio 1       /* Thread scheduling priority */
-float thread_UART_period = 1000;
-K_THREAD_STACK_DEFINE(thread_UART_stack, STACK_SIZE);  /* Create thread stack space */
-struct k_thread thread_UART_data;  /* Create variables for thread data */
-k_tid_t thread_UART_tid;       /* Create task IDs */
+#define thread_UART_prio 1                  /**< Thread scheduling priority */
+float thread_UART_period = 1000;            /**< Period of the UART thread */
+K_THREAD_STACK_DEFINE(thread_UART_stack, STACK_SIZE);  /**< Create thread stack space */
+struct k_thread thread_UART_data;           /**< Create variables for thread data */
+k_tid_t thread_UART_tid;                    /**< Create task IDs */
 
-#define thread_INPUTS_prio 1       /* Thread scheduling priority */
-float thread_INPUTS_period = 200;         /* Thread periodicity (in ms)*/
-K_THREAD_STACK_DEFINE(thread_INPUTS_stack, STACK_SIZE);  /* Create thread stack space */
-struct k_thread thread_INPUTS_data;  /* Create variables for thread data */
-k_tid_t thread_INPUTS_tid;       /* Create task IDs */
+#define thread_INPUTS_prio 1                /**< Thread scheduling priority */
+float thread_INPUTS_period = 200;           /**< Period of the INPUTS thread */
+K_THREAD_STACK_DEFINE(thread_INPUTS_stack, STACK_SIZE);  /**< Create thread stack space */
+struct k_thread thread_INPUTS_data;         /**< Create variables for thread data */
+k_tid_t thread_INPUTS_tid;                  /**< Create task IDs */
 
-#define thread_OUTPUTS_prio 1       /* Thread scheduling priority */
-float thread_OUTPUTS_period = 200;         /* Thread periodicity (in ms)*/
-K_THREAD_STACK_DEFINE(thread_OUTPUTS_stack, STACK_SIZE);  /* Create thread stack space */
-struct k_thread thread_OUTPUTS_data;  /* Create variables for thread data */
-k_tid_t thread_OUTPUTS_tid;       /* Create task IDs */
+#define thread_OUTPUTS_prio 1               /**< Thread scheduling priority */
+float thread_OUTPUTS_period = 200;          /**< Period of the OUTPUTS thread */
+K_THREAD_STACK_DEFINE(thread_OUTPUTS_stack, STACK_SIZE);  /**< Create thread stack space */
+struct k_thread thread_OUTPUTS_data;        /**< Create variables for thread data */
+k_tid_t thread_OUTPUTS_tid;                 /**< Create task IDs */
 
-#define thread_SENSOR_prio 1       /* Thread scheduling priority */
-float thread_SENSOR_period = 200;         /* Thread periodicity (in ms)*/
-K_THREAD_STACK_DEFINE(thread_SENSOR_stack, STACK_SIZE);  /* Create thread stack space */
-struct k_thread thread_SENSOR_data;  /* Create variables for thread data */
-k_tid_t thread_SENSOR_tid;       /* Create task IDs */
+#define thread_SENSOR_prio 1                /**< Thread scheduling priority */
+float thread_SENSOR_period = 200;           /**< Thread periodicity (in ms)*/
+K_THREAD_STACK_DEFINE(thread_SENSOR_stack, STACK_SIZE);  /**< Create thread stack space */
+struct k_thread thread_SENSOR_data;         /**< Create variables for thread data */
+k_tid_t thread_SENSOR_tid;                  /**< Create task IDs */
 
-#define thread_Led_1_prio 1       /* Thread scheduling priority */
-K_THREAD_STACK_DEFINE(thread_Led_1_stack, STACK_SIZE);  /* Create thread stack space */
-struct k_thread thread_Led_1_data;  /* Create variables for thread data */
-k_tid_t thread_Led_1_tid;       /* Create task IDs */
+#define thread_Led_1_prio 1                 /**< Thread scheduling priority */
+K_THREAD_STACK_DEFINE(thread_Led_1_stack, STACK_SIZE);  /**< Create thread stack space */
+struct k_thread thread_Led_1_data;          /**< Create variables for thread data */
+k_tid_t thread_Led_1_tid;                   /**< Create task IDs */
 
-#define thread_Led_2_prio 1       /* Thread scheduling priority */
-K_THREAD_STACK_DEFINE(thread_Led_2_stack, STACK_SIZE);  /* Create thread stack space */
-struct k_thread thread_Led2_data;  /* Create variables for thread data */
-k_tid_t thread_Led_2_tid;       /* Create task IDs */
+#define thread_Led_2_prio 1                 /**< Thread scheduling priority */
+K_THREAD_STACK_DEFINE(thread_Led_2_stack, STACK_SIZE);  /**< Create thread stack space */
+struct k_thread thread_Led2_data;           /**< Create variables for thread data */
+k_tid_t thread_Led_2_tid;                   /**< Create task IDs */
 
-struct k_sem sem_sensor;
-struct k_sem sem_outputs;
-struct k_sem sem_Led_1_update;
-struct k_sem sem_Led_2_update;
+struct k_sem sem_sensor;                    /**< Semaphore for sensor access synchronization */
+struct k_sem sem_outputs;                   /**< Semaphore for sensor access synchronization */
+struct k_sem sem_Led_1_update;              /**< Semaphore for sensor access synchronization */
+struct k_sem sem_Led_2_update;              /**< Semaphore for sensor access synchronization */
 
 extern uint8_t Led_1_new;
 extern uint8_t Led_2_new;
 
 static const struct i2c_dt_spec dev_i2c = I2C_DT_SPEC_GET(I2C0_NODE);
 
+/**
+ * \brief  Configures the threads and initializes the semaphores.
+ */
 void configure_threads()
 {
     thread_UART_tid = k_thread_create(&thread_UART_data, thread_UART_stack,
@@ -93,7 +94,12 @@ void configure_threads()
     k_sem_init(&sem_Led_2_update, 0, 1);
 }
 
-/* Thread code implementation */
+/**
+ * @brief Thread code implementation for LED 1.
+ *
+ * This thread continuously updates the value of DB.OUTPUT1 based on the Led_1_new variable.
+ * It waits for the sem_Led_1_update semaphore to be available before updating the value.
+ */
 void thread_Led_1_code(void *argA , void *argB, void *argC)
 {
     /* Thread loop */
@@ -104,6 +110,12 @@ void thread_Led_1_code(void *argA , void *argB, void *argC)
     }
 }
 
+/**
+ * @brief Thread code implementation for LED 2.
+ *
+ * This thread continuously updates the value of DB.OUTPUT2 based on the Led_2_new variable.
+ * It waits for the sem_Led_2_update semaphore to be available before updating the value.
+ */
 void thread_Led_2_code(void *argA , void *argB, void *argC)
 {
     /* Thread loop */
@@ -114,6 +126,12 @@ void thread_Led_2_code(void *argA , void *argB, void *argC)
     }
 }
 
+/**
+ * @brief Thread code implementation for UART.
+ *
+ * This thread periodically calls the print_interface function and waits for the specified
+ * thread_UART_period before each iteration.
+ */
 void thread_UART_code(void *argA , void *argB, void *argC)
 {
     /* Local vars */
@@ -140,6 +158,13 @@ void thread_UART_code(void *argA , void *argB, void *argC)
     //timing_stop();
 }
 
+
+/**
+ * @brief Thread code implementation for INPUTS.
+ *
+ * This thread continuously updates the values of DB.BUTTON1, DB.BUTTON2, DB.BUTTON3, and DB.BUTTON4
+ * based on the button_state array. It waits for the specified thread_INPUTS_period before each iteration.
+ */
 void thread_INPUTS_code()
 {
 
@@ -171,6 +196,14 @@ void thread_INPUTS_code()
 
 }
 
+
+/**
+ * @brief Thread code implementation for OUTPUTS.
+ *
+ * This thread continuously updates the values of DB.OUTPUT1 and DB.OUTPUT2 based on the
+ * state of the corresponding variables. It waits for the sem_outputs semaphore to be available
+ * before updating the values.
+ */
 void thread_OUTPUTS_code()
 {
     /* Local vars */
@@ -212,6 +245,12 @@ void thread_OUTPUTS_code()
     }
 }
 
+
+/**
+ * @brief Thread code implementation for SENSOR.
+ *
+ * This thread reads the temperature value from an I2C device and updates the DB.ThermTemp variable.
+ */
 void thread_SENSOR_code()
 {
     /* Local vars */
