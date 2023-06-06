@@ -35,6 +35,8 @@ extern struct DATABASE DB;
 extern struct k_sem sem_sensor;
 extern struct k_sem sem_inputs;
 extern struct k_sem sem_outputs;
+extern struct k_sem sem_Led_1_update;
+extern struct k_sem sem_Led_2_update;
 
 extern struct gpio_dt_spec led0_dev;
 extern struct gpio_dt_spec led1_dev;
@@ -50,6 +52,8 @@ void thread_UART_code(void *argA, void *argB, void *argC); /* Thread code protot
 void thread_INPUTS_code();
 void thread_OUTPUTS_code();
 void thread_SENSOR_code();
+void thread_Led_1_code();
+void thread_Led_2_code();
 
 
 #endif

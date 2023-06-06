@@ -16,7 +16,9 @@ const struct device *uart_dev = DEVICE_DT_GET(UART_NODE);
 uint8_t rx_buf[RXBUF_SIZE];      /* RX buffer, to store received data */
 uint8_t rx_chars[RXBUF_SIZE];    /* chars actually received  */
 volatile int uart_rxbuf_nchar=0;        /* Number of chars currrntly on the rx buffer */
-uint8_t comand_state[RXBUF_SIZE];                     
+uint8_t comand_state[RXBUF_SIZE]; 
+uint8_t Led_1_new;
+uint8_t Led_2_new;                    
 
 
 /* Struct for UART configuration (if using default values is not needed) */
@@ -201,43 +203,35 @@ void enter_routine(uint8_t rx_chars_aux[RXBUF_SIZE])            // Executed when
     {
         if(rx_chars[2] == '1')
         {
-            k_sem_take(&sem_inputs,  K_FOREVER);   
             uint8_t str_aux[RXBUF_SIZE];
             uint8_t str_message[] = "Button 1 state: "; 
             sprintf(str_aux,"%i",DB.BUTTON1);
             strcat(str_message,str_aux);
             strcpy(comand_state,str_message);
-            k_sem_give(&sem_inputs);   
         }
         else if(rx_chars[2] == '2')
         {
-            k_sem_take(&sem_inputs,  K_FOREVER); 
             uint8_t str_aux[RXBUF_SIZE];
             uint8_t str_message[] = "Button 2 state: "; 
             sprintf(str_aux,"%i",DB.BUTTON2);
             strcat(str_message,str_aux);
             strcpy(comand_state,str_message);
-            k_sem_give(&sem_inputs);   
         }
         else if(rx_chars[2] == '3')
         {
-            k_sem_take(&sem_inputs,  K_FOREVER); 
             uint8_t str_aux[RXBUF_SIZE];
             uint8_t str_message[] = "Button 3 state: "; 
             sprintf(str_aux,"%i",DB.BUTTON3);
             strcat(str_message,str_aux);
             strcpy(comand_state,str_message);
-            k_sem_give(&sem_inputs);  
         }
         else if(rx_chars[2] == '4')
         {
-            k_sem_take(&sem_inputs,  K_FOREVER); 
             uint8_t str_aux[RXBUF_SIZE];
             uint8_t str_message[] = "Button 4 state: "; 
             sprintf(str_aux,"%i",DB.BUTTON4);
             strcat(str_message,str_aux);
             strcpy(comand_state,str_message);
-            k_sem_give(&sem_inputs);  
         }
         else
         {
@@ -256,14 +250,16 @@ void enter_routine(uint8_t rx_chars_aux[RXBUF_SIZE])            // Executed when
         if(rx_chars[2] == '1')
         {
             k_sem_take(&sem_outputs,  K_FOREVER);   
-            DB.OUTPUT1 = rx_chars[4] - '0';
+            Led_1_new = rx_chars[4] - '0';
+            k_sem_give(&sem_Led_1_update);
             k_sem_give(&sem_outputs);
             //printf("\nDB.OUTPUT1: %u",DB.OUTPUT1);
         }
         else if(rx_chars[2] == '2')
         {
             k_sem_take(&sem_outputs,  K_FOREVER);   
-            DB.OUTPUT2 = rx_chars[4] - '0';
+            Led_2_new = rx_chars[4] - '0';
+            k_sem_give(&sem_Led_2_update);
             k_sem_give(&sem_outputs);
             //printf("\nDB.OUTPUT2: %u",DB.OUTPUT2);
         }

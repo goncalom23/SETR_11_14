@@ -41,11 +41,23 @@ K_THREAD_STACK_DEFINE(thread_SENSOR_stack, STACK_SIZE);  /* Create thread stack 
 struct k_thread thread_SENSOR_data;  /* Create variables for thread data */
 k_tid_t thread_SENSOR_tid;       /* Create task IDs */
 
+#define thread_Led_1_prio 1       /* Thread scheduling priority */
+K_THREAD_STACK_DEFINE(thread_Led_1_stack, STACK_SIZE);  /* Create thread stack space */
+struct k_thread thread_Led_1_data;  /* Create variables for thread data */
+k_tid_t thread_Led_1_tid;       /* Create task IDs */
+
+#define thread_Led_2_prio 1       /* Thread scheduling priority */
+K_THREAD_STACK_DEFINE(thread_Led_2_stack, STACK_SIZE);  /* Create thread stack space */
+struct k_thread thread_Led2_data;  /* Create variables for thread data */
+k_tid_t thread_Led_2_tid;       /* Create task IDs */
+
 struct k_sem sem_sensor;
-struct k_sem sem_inputs;
 struct k_sem sem_outputs;
+struct k_sem sem_Led_1_update;
+struct k_sem sem_Led_2_update;
 
-
+extern uint8_t Led_1_new;
+extern uint8_t Led_2_new;
 
 static const struct i2c_dt_spec dev_i2c = I2C_DT_SPEC_GET(I2C0_NODE);
 
@@ -67,12 +79,41 @@ void configure_threads()
     K_THREAD_STACK_SIZEOF(thread_SENSOR_stack), thread_SENSOR_code,
     NULL, NULL, NULL, thread_SENSOR_prio, 0, K_NO_WAIT);
 
+        thread_Led_1_tid = k_thread_create(&thread_Led_1_data, thread_Led_1_stack,
+    K_THREAD_STACK_SIZEOF(thread_Led_1_stack), thread_Led_1_code,
+    NULL, NULL, NULL, thread_Led_1_prio, 0, K_NO_WAIT);
+
+        thread_Led_2_tid = k_thread_create(&thread_Led2_data, thread_Led_2_stack,
+    K_THREAD_STACK_SIZEOF(thread_Led_2_stack), thread_Led_2_code,
+    NULL, NULL, NULL, thread_SENSOR_prio, 0, K_NO_WAIT);
+
     k_sem_init(&sem_sensor, 1, 1);
-    k_sem_init(&sem_inputs, 0, 1);
     k_sem_init(&sem_outputs, 0, 1);
+    k_sem_init(&sem_Led_1_update, 0, 1);
+    k_sem_init(&sem_Led_2_update, 0, 1);
 }
 
 /* Thread code implementation */
+void thread_Led_1_code(void *argA , void *argB, void *argC)
+{
+    /* Thread loop */
+    while(1) 
+    {   
+        k_sem_take(&sem_Led_1_update,  K_FOREVER);
+        DB.OUTPUT1 = Led_1_new;
+    }
+}
+
+void thread_Led_2_code(void *argA , void *argB, void *argC)
+{
+    /* Thread loop */
+    while(1) 
+    {   
+        k_sem_take(&sem_Led_2_update,  K_FOREVER);
+        DB.OUTPUT2 = Led_2_new;
+    }
+}
+
 void thread_UART_code(void *argA , void *argB, void *argC)
 {
     /* Local vars */
@@ -112,12 +153,10 @@ void thread_INPUTS_code()
     /* Thread loop */
     while(1) 
     {       
-        k_sem_take(&sem_inputs,  K_FOREVER);
         DB.BUTTON1 = button_state[0];
         DB.BUTTON2 = button_state[1];
         DB.BUTTON3 = button_state[2];
         DB.BUTTON4 = button_state[3];
-        k_sem_give(&sem_inputs);
 
         /* Wait for next release instant */ 
         fin_time = k_uptime_get();
